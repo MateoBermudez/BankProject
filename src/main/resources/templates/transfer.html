@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<h1 th:text="${titulo}"></h1>
+<form th:action="@{/transfer}" th:object="${transfer}" method="post">
+    <label for="origin">Origin:</label>
+    <input type="text" id="origin" th:field="*{originAccount}" th:value="${originAccount}" readonly/><br/>
+    <label for="destination">Destination:</label>
+    <input type="text" id="destination" th:field="*{destinationAccount}" required/><br/>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" th:field="*{amount}" min="0" required/><br/>
+    <label for="description">Description:</label>
+    <input type="text" id="description" th:field="*{description}" required/><br/>
+    <button type="submit">Transfer</button>
+</form>
+
+
+<div th:if="${message}" th:text="${message}"></div>
+</body>
+</html>

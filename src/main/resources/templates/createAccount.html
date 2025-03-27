@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/account.js"></script>
+</head>
+<body>
+    <h1 th:text="${titulo}"></h1>
+    <form th:action="@{/createAccount}" th:object="${account}" method="post">
+        <label for="accountType">Type of Account:</label>
+        <select id="accountType" th:field="*{accountType}" onchange="handleAccountTypeChange()" required>
+            <option value="">Select</option>
+            <option value="Savings">Savings</option>
+            <option value="Credit">Credit</option>
+        </select><br/>
+        <label for="balance">Inicial Balance:</label>
+        <input type="text" id="balance" th:field="*{balance}" required/><br/>
+        <button type="submit">Create Account</button>
+    </form>
+</body>
+</html>
