@@ -41,11 +41,9 @@
 </table>
 <div th:if="${message}" th:text="${message}"></div>
 
-<div>
-    <form th:action="@{/addAccount}" method="get">
-        <button type="submit">Agregar Cuenta</button>
-    </form>
-</div>
+<a href="/createAccount">Create Account</a>
+
+<a href="/home" class="button">Back to Home</a>
 
 </body>
 </html>

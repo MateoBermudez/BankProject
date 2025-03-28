@@ -1,12 +1,14 @@
 package com.uni.bankproject.service;
 
 import com.uni.bankproject.entity.Account;
+import com.uni.bankproject.entity.User;
 import com.uni.bankproject.repository.AccountImplemention;
 import com.uni.bankproject.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class AccountService {
@@ -50,4 +52,19 @@ public class AccountService {
     public Account getAccountById(String id){
         return accountImplemention.getAccountById(id);
     }
+
+    public String getIdByUsername (String username){
+        return accountImplemention.getIdByUsername(username);
+    }
+
+    public String generateUniqueAccountNumber() {
+        Random random = new Random();
+        String accountNumber;
+        do {
+            accountNumber = String.format("%05d", random.nextInt(100000)); // Genera un número entre 00000 y 99999
+        } while (accountImplemention.existsByAccountNumber(accountNumber));
+        return accountNumber;
+    }
+
+
 }

@@ -52,5 +52,9 @@ public class TransferService{
         }
     }
 
+    public String getClientId(String id){
+        return tr.getClientId(id);
+    }
+
 
 }

@@ -42,10 +42,10 @@ public class TransferController {
 
     @GetMapping("/getTransfers/{id}")
     public String getTransfers(Model model, @PathVariable String id) {
-
+        String clientId = transferService.getClientId(id);
         model.addAttribute("titulo", "Listado de Transferencias");
         model.addAttribute("transfers", transferService.getTransfersByAccount(id));
-        model.addAttribute("account", id);
+        model.addAttribute("clientId", clientId);
         return "getTransfers";
     }
 

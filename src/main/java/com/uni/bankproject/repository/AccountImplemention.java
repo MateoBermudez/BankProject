@@ -1,6 +1,7 @@
 package com.uni.bankproject.repository;
 
 import com.uni.bankproject.entity.Account;
+import com.uni.bankproject.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -48,6 +49,21 @@ public class AccountImplemention implements AccountRepository{
     @Transactional(readOnly = true)
     public Account getAccountById(String id) {
         return em.find(Account.class, id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String getIdByUsername(String username) {
+        String query = "SELECT u.userID FROM User u WHERE u.userName = :username";
+        return (String) em.createQuery(query).setParameter("username", username).getSingleResult();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByAccountNumber(String accountNumber) {
+        String query = "SELECT COUNT(*) FROM Account a WHERE a.accountNumber = :accountNumber";
+        Long count = (Long) em.createQuery(query).setParameter("accountNumber", accountNumber).getSingleResult();
+        return count > 0;
     }
 
 

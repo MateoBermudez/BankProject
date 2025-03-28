@@ -13,8 +13,7 @@ import java.util.Random;
 public class Account {
 
     @Id
-    @Column(name = "account_number")
-
+    @Column(name = "account_number", unique = true, nullable = false)
     private String accountNumber;
     private double balance;
     private String accountType;

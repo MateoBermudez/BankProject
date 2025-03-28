@@ -1,6 +1,7 @@
 package com.uni.bankproject.repository;
 
 import com.uni.bankproject.entity.Account;
+import com.uni.bankproject.entity.User;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface AccountRepository {
 
     public Account getAccountById(String id);
 
+    public String getIdByUsername(String username);
 
+    public boolean existsByAccountNumber(String accountNumber);
 }

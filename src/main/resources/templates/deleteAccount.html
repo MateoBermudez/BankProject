@@ -8,8 +8,6 @@
 
 <div th:if="${deleteMessage}" th:text="${deleteMessage}"></div>
 
-<form th:action="@{'/getAccounts/' + ${Userid}}" method="get" style="display:inline;">
-  <button type="submit">Volver a tus cuentas</button>
-</form>
+<a href="/getAccounts" class="button"> Back to My Accounts</a>
 </body>
 </html>

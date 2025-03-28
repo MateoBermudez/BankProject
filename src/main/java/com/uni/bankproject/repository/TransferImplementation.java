@@ -88,6 +88,10 @@ public class TransferImplementation implements TransferRepository{
         }
     }
 
-
-
+    @Override
+    @Transactional(readOnly = true)
+    public String getClientId(String id) {
+        return (String) em.createQuery("SELECT a.clientId FROM Account a WHERE a.accountNumber = :id")
+                .setParameter("id", id).getSingleResult();
+    }
 }

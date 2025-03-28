@@ -20,5 +20,5 @@ public interface TransferRepository {
 
     public boolean VerifyBalance(String id, double amount);
 
-
+    public String getClientId(String id);
 }
