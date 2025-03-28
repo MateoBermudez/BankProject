@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/api/v1/auth/**", "/error**").permitAll()
+                                .requestMatchers("/api/v1/auth/**", "/error**", "/home", "/favicon.ico", "/script.js", "styles.css", "/images/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
