@@ -38,7 +38,7 @@ public class AuthController {
         Cookie cookie = CookieUtils.createCookie("jwt", token, 24 * 60 * 60);
         response.addCookie(cookie);
         response.addHeader("Set-Cookie", CookieUtils.addCookie(cookie, "Strict"));
-        return "redirect:/home";
+        return "redirect:/api/v1/user";
     }
 
     @PostMapping("/register")
@@ -47,6 +47,14 @@ public class AuthController {
         Cookie cookie = CookieUtils.createCookie("jwt", token, 24 * 60 * 60);
         response.addCookie(cookie);
         response.addHeader("Set-Cookie", CookieUtils.addCookie(cookie, "Strict"));
-        return "redirect:/home";
+        return "redirect:/api/v1/user";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = CookieUtils.createCookie("jwt", "", 0);
+        response.addCookie(cookie);
+        response.addHeader("Set-Cookie", CookieUtils.addCookie(cookie, "Strict"));
+        return "redirect:/api/v1/auth/login";
     }
 }

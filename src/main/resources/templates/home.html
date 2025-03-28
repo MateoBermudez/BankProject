@@ -1,29 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>UniBank - University Banking Project</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
-<header>
-  <h1>Welcome to the Home Page</h1>
-</header>
-<nav>
-  <ul>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/contact">Contact</a></li>
-  </ul>
-</nav>
+<div class="app-container">
+  <header>
+    <div class="logo-container">
+      <h1>UniBank</h1>
+      <p class="tagline">Your University Banking Solution</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#users">Users</a></li>
+        <li><a href="#accounts">Accounts</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="light-icon">☀️</span>
+      <span class="dark-icon">🌙</span>
+    </button>
+  </header>
 
-<a href="/createAccount">Create Account</a>
-<a href="/getAccounts">My accounts</a>
-<main>
-  <p>This is the home page of the application.</p>
-</main>
-<footer>
-  <p>&copy; 2024 Your Company</p>
-</footer>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Welcome to UniBank</h2>
+        <p>A secure and efficient banking solution for your university project.</p>
+        <button class="cta-button">Get Started</button>
+      </div>
+      <div class="hero-image">
+        <img th:src="@{/images/banking-illustration.svg}" alt="Banking illustration">
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>Key Features</h2>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Account Management</h3>
+          <p>Create and manage multiple account types with ease.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>User Administration</h3>
+          <p>Comprehensive user management system.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Transaction History</h3>
+          <p>Track all financial activities with detailed logs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="users" class="section">
+      <h2>Users Section</h2>
+      <div class="content-container">
+        <div class="content-card">
+          <h3>User Management</h3>
+          <p>This section allows administrators to manage user accounts, including:</p>
+          <ul>
+            <li>Creating new users</li>
+            <li>Updating user information</li>
+            <li>Deactivating accounts</li>
+            <li>Setting user permissions</li>
+          </ul>
+          <div class="user-list" th:if="${users != null and !users.empty}">
+            <h4>Recent Users</h4>
+            <table>
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.name}">John Doe</td>
+                <td th:text="${user.email}">john@example.com</td>
+                <td th:text="${user.active ? 'Active' : 'Inactive'}">Active</td>
+              </tr>
+              <!-- Sample data for preview -->
+              <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>john@example.com</td>
+                <td>Active</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>jane@example.com</td>
+                <td>Active</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="empty-state" th:if="${users == null or users.empty}">
+            <p>No users found in the system.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="accounts" class="section">
+      <h2>Bank Accounts Section</h2>
+      <div class="content-container">
+        <div class="content-card">
+          <h3>Account Management</h3>
+          <p>This section provides tools for managing bank accounts:</p>
+          <ul>
+            <li>Creating checking and savings accounts</li>
+            <li>Viewing account balances</li>
+            <li>Processing deposits and withdrawals</li>
+            <li>Transferring funds between accounts</li>
+          </ul>
+          <div class="account-list" th:if="${accounts != null and !accounts.empty}">
+            <h4>Recent Accounts</h4>
+            <table>
+              <thead>
+              <tr>
+                <th>Account #</th>
+                <th>Owner</th>
+                <th>Type</th>
+                <th>Balance</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="account : ${accounts}">
+                <td th:text="${account.number}">AC1001</td>
+                <td th:text="${account.owner}">John Doe</td>
+                <td th:text="${account.type}">Checking</td>
+                <td th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}">$1,250.00</td>
+              </tr>
+              <!-- Sample data for preview -->
+              <tr>
+                <td>AC1001</td>
+                <td>John Doe</td>
+                <td>Checking</td>
+                <td>$1,250.00</td>
+              </tr>
+              <tr>
+                <td>AC1002</td>
+                <td>Jane Smith</td>
+                <td>Savings</td>
+                <td>$5,430.75</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="empty-state" th:if="${accounts == null or accounts.empty}">
+            <p>No accounts found in the system.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About This Project</h2>
+      <div class="content-container">
+        <div class="content-card">
+          <h3>University Banking Application</h3>
+          <p>This project demonstrates a banking application built with:</p>
+          <ul>
+            <li>Spring Boot backend</li>
+            <li>Thymeleaf templating engine</li>
+            <li>Responsive HTML/CSS frontend</li>
+            <li>Light and dark mode support</li>
+          </ul>
+          <p>Created as part of a university project to showcase web application development skills.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>UniBank</h3>
+        <p>A university project banking application</p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#users">Users</a></li>
+          <li><a href="#accounts">Accounts</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: contact@unibank.edu</p>
+        <p>Phone: (555) 123–4567</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
 </body>
 </html>
