@@ -1,16 +1,16 @@
 package com.uni.bankproject.config;
 
-import jakarta.servlet.http.HttpServletResponse;
+import com.uni.bankproject.exception.CustomAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -29,20 +29,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                // Check which one is better or which one to use
+                .csrf(AbstractHttpConfigurer::disable)
+                //.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/api/v1/auth/**", "/error**", "/home", "/favicon.ico", "/script.js", "styles.css", "/images/**").permitAll()
+                                .requestMatchers("/api/v1/auth/**", "/error**", "/home", "/index", "/favicon.ico", "/script.js", "styles.css", "/images/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
                         sessionManager
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .exceptionHandling(
-                        exceptionHandling -> exceptionHandling
-                                .authenticationEntryPoint((request, response, authException)
-                                        -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .authenticationEntryPoint((request, response, authException) -> {
+                                    response.sendRedirect("/error?message=" + "401 Authentication Error: " + authException.getMessage());
+                                })
                 )
                 .headers(headers -> headers
                         .contentSecurityPolicy(csp -> csp

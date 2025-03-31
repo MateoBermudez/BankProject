@@ -2,11 +2,83 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Error</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - UniBank</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
-<h1>An error occurred</h1>
-<!--/*@thymesVar id="errorMessage" type="String"*/-->
-<p th:text="${errorMessage}"></p>
+<div class="app-container">
+  <header>
+    <div class="logo-container">
+      <h1>UniBank</h1>
+      <p class="tagline">Your University Banking Solution</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a th:href="@{/home}">Home</a></li>
+        <li><a th:href="@{/#features}">Features</a></li>
+        <li><a th:href="@{/#about}">About</a></li>
+        <li><a th:href="@{/api/v1/auth/login}">Login</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="light-icon">☀️</span>
+      <span class="dark-icon">🌙</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="error-section">
+      <div class="error-container">
+        <div class="error-icon">
+          <span>⚠️</span>
+        </div>
+        <h2>Oops! An Error Occurred</h2>
+        <div class="error-message">
+          <p th:text="${errorMessage} ?: 'An unexpected error has occurred. Please try again later.'"></p>
+        </div>
+        <div class="error-actions">
+          <a th:href="@{/home}" class="btn btn-primary">Return to Home</a>
+          <button onclick="window.history.back()" class="btn btn-outline">Go Back</button>
+        </div>
+        <div class="error-help">
+          <h3>Need Help?</h3>
+          <p>If you continue to experience issues, please contact our support team:</p>
+          <ul>
+            <li>Email: <a href="mailto:support@unibank.edu">support@unibank.edu</a></li>
+            <li>Phone: (555) 123–4567</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>UniBank</h3>
+        <p>A university project banking application</p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a th:href="@{/}">Home</a></li>
+          <li><a th:href="@{/#features}">Features</a></li>
+          <li><a th:href="@{/#about}">About</a></li>
+          <li><a th:href="@{/api/v1/auth/login}">Login</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: contact@unibank.edu</p>
+        <p>Phone: (555) 123–4567</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
 </body>
 </html>

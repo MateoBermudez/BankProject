@@ -45,6 +45,10 @@ public class User implements UserDetails {
     @NotNull
     private String userKey;
 
+    @Column(name="bank_admin")
+    @NotNull
+    private boolean admin = false;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

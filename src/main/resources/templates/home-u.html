@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - UniBank</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#accounts">Accounts</a></li>
+                <li><a href="#transactions">Transactions</a></li>
+                <li><a href="#transfers">Transfers</a></li>
+                <li><a href="#services">Services</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a th:href="@{/api/v1/user}" class="btn btn-outline">My Profile</a>
+            <a th:href="@{/api/v1/auth/logout}" class="btn btn-secondary">Logout</a>
+            <button id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard-welcome">
+            <div class="welcome-card">
+                <div class="welcome-header">
+                    <h2>Welcome, <span th:text="${user.userName}">User</span>!</h2>
+                    <p>Last login: <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy HH:mm')}">May 15, 2025 14:30</span></p>
+                </div>
+                <div class="quick-actions">
+                    <a href="#transfers" class="quick-action-btn">
+                        <span class="action-icon">🔄</span>
+                        <span>Transfer</span>
+                    </a>
+                    <a href="#" class="quick-action-btn">
+                        <span class="action-icon">💰</span>
+                        <span>Deposit</span>
+                    </a>
+                    <a href="#" class="quick-action-btn">
+                        <span class="action-icon">📱</span>
+                        <span>Mobile</span>
+                    </a>
+                    <a href="#" class="quick-action-btn">
+                        <span class="action-icon">📊</span>
+                        <span>Reports</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-summary">
+            <div class="summary-card">
+                <div class="summary-header">
+                    <h3>Financial Summary</h3>
+                    <div class="summary-actions">
+                        <button class="btn btn-small">This Month</button>
+                        <button class="btn btn-small btn-outline">Last Month</button>
+                    </div>
+                </div>
+                <div class="summary-content">
+                    <div class="summary-chart">
+                        <div class="chart-placeholder">
+                            <div class="chart-bar" style="height: 30%;"></div>
+                            <div class="chart-bar" style="height: 50%;"></div>
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 40%;"></div>
+                            <div class="chart-bar" style="height: 60%;"></div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color income"></span>
+                                <span>Income</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color expenses"></span>
+                                <span>Expenses</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <h4>Total Balance</h4>
+                            <p class="stat-value">$5,240.75</p>
+                            <p class="stat-change positive">+$320.45 (6.5%)</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Income</h4>
+                            <p class="stat-value">$2,150.00</p>
+                            <p class="stat-change positive">+$150.00 (7.5%)</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Expenses</h4>
+                            <p class="stat-value">$1,829.55</p>
+                            <p class="stat-change negative">+$95.20 (5.5%)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="accounts" class="accounts-section">
+            <div class="section-header">
+                <h2>My Accounts</h2>
+                <button class="btn btn-primary">+ New Account</button>
+            </div>
+            <div class="accounts-grid">
+                <div class="account-card">
+                    <div class="account-header">
+                        <h3>Student Checking</h3>
+                        <span class="account-number">**** 4567</span>
+                    </div>
+                    <div class="account-balance">
+                        <p class="balance-label">Available Balance</p>
+                        <p class="balance-amount">$2,345.67</p>
+                    </div>
+                    <div class="account-actions">
+                        <a href="#" class="btn btn-small">View Details</a>
+                        <a href="#transfers" class="btn btn-small btn-outline">Transfer</a>
+                    </div>
+                </div>
+                <div class="account-card">
+                    <div class="account-header">
+                        <h3>Student Savings</h3>
+                        <span class="account-number">**** 7890</span>
+                    </div>
+                    <div class="account-balance">
+                        <p class="balance-label">Available Balance</p>
+                        <p class="balance-amount">$1,895.08</p>
+                    </div>
+                    <div class="account-actions">
+                        <a href="#" class="btn btn-small">View Details</a>
+                        <a href="#transfers" class="btn btn-small btn-outline">Transfer</a>
+                    </div>
+                </div>
+                <div class="account-card">
+                    <div class="account-header">
+                        <h3>Student Credit Card</h3>
+                        <span class="account-number">**** 2345</span>
+                    </div>
+                    <div class="account-balance">
+                        <p class="balance-label">Current Balance</p>
+                        <p class="balance-amount">$450.25</p>
+                        <p class="balance-limit">Credit Limit: $1,500.00</p>
+                    </div>
+                    <div class="account-actions">
+                        <a href="#" class="btn btn-small">View Details</a>
+                        <a href="#" class="btn btn-small btn-outline">Pay Balance</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="transactions" class="transactions-section">
+            <div class="section-header">
+                <h2>Recent Transactions</h2>
+                <div class="transaction-filters">
+                    <label>
+                        <select class="form-control form-control-sm">
+                            <option>All Accounts</option>
+                            <option>Checking</option>
+                            <option>Savings</option>
+                            <option>Credit Card</option>
+                        </select>
+                    </label>
+                    <button class="btn btn-small">Filter</button>
+                </div>
+            </div>
+            <div class="transactions-table-container">
+                <table class="transactions-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Account</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Balance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>May 15, 2025</td>
+                        <td>University Bookstore</td>
+                        <td>Checking *4567</td>
+                        <td>Education</td>
+                        <td class="amount negative">-$125.45</td>
+                        <td>$2,345.67</td>
+                    </tr>
+                    <tr>
+                        <td>May 14, 2025</td>
+                        <td>Campus Cafe</td>
+                        <td>Checking *4567</td>
+                        <td>Food</td>
+                        <td class="amount negative">-$12.50</td>
+                        <td>$2,471.12</td>
+                    </tr>
+                    <tr>
+                        <td>May 12, 2025</td>
+                        <td>Direct Deposit - Part-time Job</td>
+                        <td>Checking *4567</td>
+                        <td>Income</td>
+                        <td class="amount positive">+$450.00</td>
+                        <td>$2,483.62</td>
+                    </tr>
+                    <tr>
+                        <td>May 10, 2025</td>
+                        <td>Transfer to Savings</td>
+                        <td>Checking *4567</td>
+                        <td>Transfer</td>
+                        <td class="amount negative">-$200.00</td>
+                        <td>$2,033.62</td>
+                    </tr>
+                    <tr>
+                        <td>May 10, 2025</td>
+                        <td>Transfer from Checking</td>
+                        <td>Savings *7890</td>
+                        <td>Transfer</td>
+                        <td class="amount positive">+$200.00</td>
+                        <td>$1,895.08</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="transactions-footer">
+                <a href="#" class="btn btn-secondary">View All Transactions</a>
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>&laquo;</button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">&raquo;</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="transfers" class="transfers-section">
+            <div class="section-header">
+                <h2>Transfer Money</h2>
+            </div>
+            <div class="transfer-container">
+                <div class="transfer-form-container">
+                    <form class="transfer-form">
+                        <div class="form-group">
+                            <label for="fromAccount">From Account</label>
+                            <select id="fromAccount" name="fromAccount" class="form-control">
+                                <option>Checking *4567 - $2,345.67</option>
+                                <option>Savings *7890 - $1,895.08</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="toAccount">To Account</label>
+                            <select id="toAccount" name="toAccount" class="form-control">
+                                <option>Savings *7890 - $1,895.08</option>
+                                <option>Checking *4567 - $2,345.67</option>
+                                <option>Credit Card *2345 - $450.25</option>
+                                <option>Add External Account</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <div class="amount-input">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="amount" name="amount" class="form-control" placeholder="0.00" step="0.01" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="transferDate">Transfer Date</label>
+                            <input type="date" id="transferDate" name="transferDate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="memo">Memo (Optional)</label>
+                            <input type="text" id="memo" name="memo" class="form-control" placeholder="Add a note">
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="recurring" name="recurring">
+                                <label for="recurring">Make this a recurring transfer</label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Transfer Funds</button>
+                            <button type="reset" class="btn btn-outline">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="transfer-info">
+                    <div class="info-card">
+                        <h3>Transfer Information</h3>
+                        <ul class="info-list">
+                            <li>Transfers between your UniBank accounts are processed immediately during business hours.</li>
+                            <li>Transfers to external accounts may take 1–3 business days to process.</li>
+                            <li>There are no fees for transfers between your UniBank accounts.</li>
+                            <li>You can schedule transfers up to 90 days in advance.</li>
+                            <li>Recurring transfers can be set up on a daily, weekly, or monthly basis.</li>
+                        </ul>
+                        <div class="recent-transfers">
+                            <h4>Recent Transfers</h4>
+                            <div class="recent-transfer-item">
+                                <div class="transfer-details">
+                                    <p class="transfer-accounts">Checking to Savings</p>
+                                    <p class="transfer-date">May 10, 2025</p>
+                                </div>
+                                <p class="transfer-amount">$200.00</p>
+                            </div>
+                            <div class="recent-transfer-item">
+                                <div class="transfer-details">
+                                    <p class="transfer-accounts">Checking to Credit Card</p>
+                                    <p class="transfer-date">May 5, 2025</p>
+                                </div>
+                                <p class="transfer-amount">$150.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section dashboard-services">
+            <div class="section-header">
+                <h2>Banking Services</h2>
+            </div>
+            <div class="services-grid">
+                <a href="#" class="service-tile">
+                    <div class="service-icon">💳</div>
+                    <h3>Card Management</h3>
+                    <p>Manage your debit and credit cards</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">📱</div>
+                    <h3>Mobile Banking</h3>
+                    <p>Download our mobile app</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">🔔</div>
+                    <h3>Alerts</h3>
+                    <p>Set up account notifications</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">📝</div>
+                    <h3>Statements</h3>
+                    <p>View and download statements</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">🔒</div>
+                    <h3>Security</h3>
+                    <p>Update security settings</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">💰</div>
+                    <h3>Loans</h3>
+                    <p>Apply for student loans</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">📊</div>
+                    <h3>Budgeting</h3>
+                    <p>Track and manage expenses</p>
+                </a>
+                <a href="#" class="service-tile">
+                    <div class="service-icon">❓</div>
+                    <h3>Help Center</h3>
+                    <p>Get support and resources</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>Your University Banking Solution</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">📱</a>
+                    <a href="#" aria-label="Twitter">📱</a>
+                    <a href="#" aria-label="Instagram">📱</a>
+                    <a href="#" aria-label="LinkedIn">📱</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#accounts">Accounts</a></li>
+                    <li><a href="#transactions">Transactions</a></li>
+                    <li><a href="#transfers">Transfers</a></li>
+                    <li><a href="#services">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Card Management</a></li>
+                    <li><a href="#">Mobile Banking</a></li>
+                    <li><a href="#">Statements</a></li>
+                    <li><a href="#">Budgeting Tools</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: support@unibank.edu</p>
+                <p>Phone: (555) 123–4567</p>
+                <p>Hours: Mon-Fri 9am-5pm</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security</a>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
