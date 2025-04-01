@@ -2,38 +2,148 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - UniBank</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
-<h1>Register</h1>
-<form th:action="@{/api/v1/auth/register}" method="post">
-  <div>
-    <label for="userID">UserID:</label>
-    <input type="text" id="userID" name="userID" required>
-  </div>
-  <div>
-    <label for="userName">Username:</label>
-    <input type="text" id="userName" name="userName" required>
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div>
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="text" id="phoneNumber" name="phoneNumber" required>
-  </div>
-  <div>
-    <label for="address">Address:</label>
-    <input type="text" id="address" name="address" required>
-  </div>
-  <div>
-    <label for="userKey">User Key:</label>
-    <input type="text" id="userKey" name="userKey" required>
-  </div>
-  <div>
-    <button type="submit">Register</button>
-  </div>
-</form>
+<div class="app-container">
+  <header>
+    <div class="logo-container">
+      <h1>UniBank</h1>
+      <p class="tagline">Your University Banking Solution</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/#users}">Users</a></li>
+        <li><a th:href="@{/#accounts}">Accounts</a></li>
+        <li><a th:href="@{/#about}">About</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="light-icon">☀️</span>
+      <span class="dark-icon">🌙</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="auth-section">
+      <div class="auth-container register-container">
+        <div class="auth-card register-card">
+          <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join UniBank to access our banking services</p>
+          </div>
+
+          <form th:action="@{/api/v1/auth/register}" method="post" class="auth-form register-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="userID">User ID</label>
+                <input type="text" id="userID" name="userID" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label for="userName">Username</label>
+                <input type="text" id="userName" name="userName" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label for="userKey">User Key</label>
+                <input type="text" id="userKey" name="userKey" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" name="address" class="form-control" required>
+            </div>
+
+
+            <div class="form-group">
+              <div class="terms-agreement">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </div>
+          </form>
+
+          <div class="auth-footer">
+            <p>Already have an account? <a th:href="@{/api/v1/auth/login}">Sign In</a></p>
+          </div>
+        </div>
+
+        <div class="auth-info">
+          <div class="auth-info-content">
+            <h3>Benefits of UniBank</h3>
+            <p>Join thousands of students and staff who trust UniBank for their financial needs.</p>
+
+            <ul class="feature-list">
+              <li>
+                <span class="feature-icon">🎓</span>
+                <span>Special student accounts with no fees</span>
+              </li>
+              <li>
+                <span class="feature-icon">💳</span>
+                <span>Student credit cards with cashback</span>
+              </li>
+              <li>
+                <span class="feature-icon">📊</span>
+                <span>Financial planning tools</span>
+              </li>
+              <li>
+                <span class="feature-icon">🔔</span>
+                <span>Real-time transaction alerts</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>UniBank</h3>
+        <p>A university project banking application</p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a th:href="@{/}">Home</a></li>
+          <li><a th:href="@{/#users}">Users</a></li>
+          <li><a th:href="@{/#accounts}">Accounts</a></li>
+          <li><a th:href="@{/#about}">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: contact@unibank.edu</p>
+        <p>Phone: (555) 123–4567</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
 </body>
 </html>

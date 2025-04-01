@@ -1,215 +1,345 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniBank - University Banking Project</title>
-  <link rel="stylesheet" th:href="@{/styles.css}">
-  <script th:src="@{/script.js}" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniBank - University Banking Solution</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
 <div class="app-container">
-  <header>
-    <div class="logo-container">
-      <h1>UniBank</h1>
-      <p class="tagline">Your University Banking Solution</p>
-    </div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#users">Users</a></li>
-        <li><a href="#accounts">Accounts</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
-    <button id="theme-toggle" aria-label="Toggle dark mode">
-      <span class="light-icon">☀️</span>
-      <span class="dark-icon">🌙</span>
-    </button>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h2>Welcome to UniBank</h2>
-        <p>A secure and efficient banking solution for your university project.</p>
-        <button class="cta-button">Get Started</button>
-      </div>
-      <div class="hero-image">
-        <img th:src="@{/images/banking-illustration.svg}" alt="Banking illustration">
-      </div>
-    </section>
-
-    <section class="features">
-      <h2>Key Features</h2>
-      <div class="feature-cards">
-        <div class="feature-card">
-          <div class="feature-icon">💰</div>
-          <h3>Account Management</h3>
-          <p>Create and manage multiple account types with ease.</p>
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">👥</div>
-          <h3>User Administration</h3>
-          <p>Comprehensive user management system.</p>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#banking-services">Banking Services</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#locations">Locations</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a th:href="@{/api/v1/auth/login}" class="btn btn-outline">Login</a>
+            <a th:href="@{/api/v1/auth/register}" class="btn btn-primary">Register</a>
+            <button id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Transaction History</h3>
-          <p>Track all financial activities with detailed logs.</p>
-        </div>
-      </div>
-    </section>
+    </header>
 
-    <section id="users" class="section">
-      <h2>Users Section</h2>
-      <div class="content-container">
-        <div class="content-card">
-          <h3>User Management</h3>
-          <p>This section allows administrators to manage user accounts, including:</p>
-          <ul>
-            <li>Creating new users</li>
-            <li>Updating user information</li>
-            <li>Deactivating accounts</li>
-            <li>Setting user permissions</li>
-          </ul>
-          <div class="user-list" th:if="${users != null and !users.empty}">
-            <h4>Recent Users</h4>
-            <table>
-              <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Status</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="user : ${users}">
-                <td th:text="${user.id}">1</td>
-                <td th:text="${user.name}">John Doe</td>
-                <td th:text="${user.email}">john@example.com</td>
-                <td th:text="${user.active ? 'Active' : 'Inactive'}">Active</td>
-              </tr>
-              <!-- Sample data for preview -->
-              <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>john@example.com</td>
-                <td>Active</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jane Smith</td>
-                <td>jane@example.com</td>
-                <td>Active</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="empty-state" th:if="${users == null or users.empty}">
-            <p>No users found in the system.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <main>
+        <section class="welcome-banner">
+            <div class="welcome-content">
+                <h1>Welcome to UniBank</h1>
+                <p>Your trusted financial partner on campus. Explore our services and resources designed specifically for university students and staff.</p>
+            </div>
+        </section>
 
-    <section id="accounts" class="section">
-      <h2>Bank Accounts Section</h2>
-      <div class="content-container">
-        <div class="content-card">
-          <h3>Account Management</h3>
-          <p>This section provides tools for managing bank accounts:</p>
-          <ul>
-            <li>Creating checking and savings accounts</li>
-            <li>Viewing account balances</li>
-            <li>Processing deposits and withdrawals</li>
-            <li>Transferring funds between accounts</li>
-          </ul>
-          <div class="account-list" th:if="${accounts != null and !accounts.empty}">
-            <h4>Recent Accounts</h4>
-            <table>
-              <thead>
-              <tr>
-                <th>Account #</th>
-                <th>Owner</th>
-                <th>Type</th>
-                <th>Balance</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="account : ${accounts}">
-                <td th:text="${account.number}">AC1001</td>
-                <td th:text="${account.owner}">John Doe</td>
-                <td th:text="${account.type}">Checking</td>
-                <td th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}">$1,250.00</td>
-              </tr>
-              <!-- Sample data for preview -->
-              <tr>
-                <td>AC1001</td>
-                <td>John Doe</td>
-                <td>Checking</td>
-                <td>$1,250.00</td>
-              </tr>
-              <tr>
-                <td>AC1002</td>
-                <td>Jane Smith</td>
-                <td>Savings</td>
-                <td>$5,430.75</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="empty-state" th:if="${accounts == null or accounts.empty}">
-            <p>No accounts found in the system.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <section class="announcements-section">
+            <div class="container">
+                <div class="announcement-card">
+                    <div class="announcement-icon">📢</div>
+                    <div class="announcement-content">
+                        <h3>New Mobile App Update</h3>
+                        <p>Our latest app update includes improved security features and a redesigned interface. Download now!</p>
+                        <a href="#" class="btn btn-small">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="about" class="section">
-      <h2>About This Project</h2>
-      <div class="content-container">
-        <div class="content-card">
-          <h3>University Banking Application</h3>
-          <p>This project demonstrates a banking application built with:</p>
-          <ul>
-            <li>Spring Boot backend</li>
-            <li>Thymeleaf templating engine</li>
-            <li>Responsive HTML/CSS frontend</li>
-            <li>Light and dark mode support</li>
-          </ul>
-          <p>Created as part of a university project to showcase web application development skills.</p>
-        </div>
-      </div>
-    </section>
-  </main>
+        <section class="quick-links-section">
+            <div class="container">
+                <h2>Quick Links</h2>
+                <div class="quick-links-grid">
+                    <a href="#" class="quick-link-card">
+                        <div class="quick-link-icon">💳</div>
+                        <h3>Open an Account</h3>
+                        <p>Start your banking journey with us</p>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <div class="quick-link-icon">🔄</div>
+                        <h3>Transfer Funds</h3>
+                        <p>Send money quickly and securely</p>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <div class="quick-link-icon">📱</div>
+                        <h3>Mobile Banking</h3>
+                        <p>Bank on the go with our app</p>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <div class="quick-link-icon">🎓</div>
+                        <h3>Student Loans</h3>
+                        <p>Finance your education</p>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>UniBank</h3>
-        <p>A university project banking application</p>
-      </div>
-      <div class="footer-section">
-        <h3>Navigation</h3>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#users">Users</a></li>
-          <li><a href="#accounts">Accounts</a></li>
-          <li><a href="#about">About</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <p>Email: contact@unibank.edu</p>
-        <p>Phone: (555) 123–4567</p>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
-    </div>
-  </footer>
+        <section id="banking-services" class="services-overview-section">
+            <div class="container">
+                <h2>Banking Services</h2>
+                <div class="services-tabs">
+                    <div class="tabs-navigation">
+                        <button class="tab-button active" data-tab="personal">Personal Banking</button>
+                        <button class="tab-button" data-tab="student">Student Banking</button>
+                        <button class="tab-button" data-tab="staff">Staff Banking</button>
+                    </div>
+                    <div class="tabs-content">
+                        <div class="tab-pane active" id="personal">
+                            <div class="tab-content-grid">
+                                <div class="tab-content-item">
+                                    <h3>Checking Accounts</h3>
+                                    <p>Our checking accounts come with no monthly fees, online banking, and a free debit card.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Savings Accounts</h3>
+                                    <p>Earn competitive interest rates on your savings with our various account options.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Credit Cards</h3>
+                                    <p>Build credit with our low-interest credit cards designed for university members.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Personal Loans</h3>
+                                    <p>Get the funds you need with our flexible personal loan options.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="student">
+                            <div class="tab-content-grid">
+                                <div class="tab-content-item">
+                                    <h3>Student Checking</h3>
+                                    <p>No-fee checking accounts are specifically designed for students with special perks.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Student Savings</h3>
+                                    <p>Start saving with no minimum balance and earn interest on your deposits.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Student Loans</h3>
+                                    <p>Finance your education with our competitive student loan options.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Student Credit Cards</h3>
+                                    <p>Build credit history with our student credit cards featuring cashback on textbooks.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="staff">
+                            <div class="tab-content-grid">
+                                <div class="tab-content-item">
+                                    <h3>Faculty Checking</h3>
+                                    <p>Premium checking accounts for university faculty and staff with added benefits.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Retirement Planning</h3>
+                                    <p>Plan for your future with our retirement savings and investment options.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Mortgage Loans</h3>
+                                    <p>Special mortgage rates and terms for university employees.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                                <div class="tab-content-item">
+                                    <h3>Investment Services</h3>
+                                    <p>Grow your wealth with our investment services and financial advisors.</p>
+                                    <a href="#" class="link-arrow">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="resources-section">
+            <div class="container">
+                <h2>Financial Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📚</div>
+                        <h3>Financial Education</h3>
+                        <p>Learn the basics of personal finance with our educational resources.</p>
+                        <a href="#" class="btn btn-secondary">Browse Resources</a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🧮</div>
+                        <h3>Financial Calculators</h3>
+                        <p>Plan your finances with our suite of financial calculators.</p>
+                        <a href="#" class="btn btn-secondary">Use Calculators</a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📅</div>
+                        <h3>Workshops & Events</h3>
+                        <p>Attend our financial workshops and events on campus.</p>
+                        <a href="#" class="btn btn-secondary">View Calendar</a>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📝</div>
+                        <h3>Blog & Articles</h3>
+                        <p>Stay informed with our latest financial articles and tips.</p>
+                        <a href="#" class="btn btn-secondary">Read Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="locations" class="locations-section">
+            <div class="container">
+                <h2>Campus Locations</h2>
+                <div class="locations-grid">
+                    <div class="location-card">
+                        <div class="location-image">
+                            <img th:src="@{/placeholder.svg?height=200&width=300}" alt="Main Campus Branch">
+                        </div>
+                        <div class="location-details">
+                            <h3>Main Campus Branch</h3>
+                            <p>123 University Ave, Campus City, ST 12345</p>
+                            <p><strong>Hours:</strong> Mon-Fri 9am-5pm, Sat 10am-2pm</p>
+                            <p><strong>Phone:</strong> (555) 123–4567</p>
+                            <a href="#" class="btn btn-small">Get Directions</a>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <div class="location-image">
+                            <img th:src="@{/placeholder.svg?height=200&width=300}" alt="Student Center ATM">
+                        </div>
+                        <div class="location-details">
+                            <h3>Student Center ATM</h3>
+                            <p>456 Student Center Rd, Campus City, ST 12345</p>
+                            <p><strong>Hours:</strong> 24/7 Access</p>
+                            <p><strong>Services:</strong> Deposits, Withdrawals, Transfers</p>
+                            <a href="#" class="btn btn-small">Get Directions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p>We're here to help with any questions you may have about our banking services.</p>
+                        <ul class="contact-list">
+                            <li>
+                                <span class="contact-icon">📞</span>
+                                <div>
+                                    <strong>Phone</strong>
+                                    <p>(555) 123-4567</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="contact-icon">✉️</span>
+                                <div>
+                                    <strong>Email</strong>
+                                    <p>contact@unibank.edu</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="contact-icon">🕒</span>
+                                <div>
+                                    <strong>Hours</strong>
+                                    <p>Mon-Fri: 9am-5pm</p>
+                                    <p>Sat: 10am-2pm</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contact-form-container">
+                        <h3>Send us a Message</h3>
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>Your University Banking Solution</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">📱</a>
+                    <a href="#" aria-label="Twitter">📱</a>
+                    <a href="#" aria-label="Instagram">📱</a>
+                    <a href="#" aria-label="LinkedIn">📱</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#banking-services">Banking Services</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#locations">Locations</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Checking Accounts</a></li>
+                    <li><a href="#">Savings Accounts</a></li>
+                    <li><a href="#">Student Loans</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">Mobile Banking</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123–4567</p>
+                <p>Address: 123 University Ave, Campus City, ST 12345</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
 </div>
 </body>
 </html>

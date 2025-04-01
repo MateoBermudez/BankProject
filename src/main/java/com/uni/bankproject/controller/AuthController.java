@@ -2,8 +2,10 @@ package com.uni.bankproject.controller;
 
 import com.uni.bankproject.dto.LoginRequest;
 import com.uni.bankproject.dto.RegisterRequest;
+import com.uni.bankproject.exception.CustomAuthenticationException;
 import com.uni.bankproject.service.AuthService;
 import com.uni.bankproject.utils.CookieUtils;
+import com.uni.bankproject.utils.JwtUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +18,35 @@ public class AuthController {
 
 
     private final AuthService authService;
+    private final JwtUtils jwtUtils;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtUtils jwtUtils) {
         this.authService = authService;
+        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@CookieValue(value = "jwt", defaultValue = "") String token) {
+        try {
+            if (!token.isEmpty() && jwtUtils.isTokenValid(token)) {
+                return "redirect:/api/v1/user";
+            }
+        } catch (Exception e) {
+            throw new CustomAuthenticationException(e);
+        }
         return "login";
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(@CookieValue(value = "jwt", defaultValue = "") String token) {
+        try {
+            if (!token.isEmpty() && jwtUtils.isTokenValid(token)) {
+                return "redirect:/api/v1/user";
+            }
+        } catch (Exception e) {
+            throw new CustomAuthenticationException(e);
+        }
         return "register";
     }
 
