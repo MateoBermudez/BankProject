@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 th:text="${titulo}"></h1>
+<table>
+    <thead>
+    <tr>
+        <th>Numero Cuenta</th>
+        <th>Id Propietario</th>
+        <th>Saldo</th>
+        <th>Tipo de Cuenta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.accountNumber}">Id</td>
+        <td th:text="${account.clientId}">Nombre</td>
+        <td th:text="${account.balance}">Saldo</td>
+        <td th:text="${account.accountType}">Tipo de Cuenta</td>
+
+        <td>
+            <form th:action="@{'/deleteAccount/' + ${account.getAccountNumber()}}" method="get" style="display:inline;">
+                <button type="submit">Eliminar Cuenta</button>
+            </form>
+            <form th:action="@{'/transfer/' + ${account.getAccountNumber()}}" method="get" style="display:inline;">
+                <input type="hidden" name="id" th:value="${account.getAccountNumber()}" />
+                <button type="submit">Transferir</button>
+            </form>
+            <form th:action="@{'/getTransfers/' + ${account.getAccountNumber()}}" method="get" style="display:inline;">
+                <input type="hidden" name="id" th:value="${account.getAccountNumber()}" />
+                <button type="submit">Ver Transferencias</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${message}" th:text="${message}"></div>
+
+<a href="/createAccount">Create Account</a>
+
+<a href="/home" class="button">Back to Home</a>
+
+</body>
+</html>

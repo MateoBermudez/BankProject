@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1 th:text="${titulo}"></h1>
+    <form th:action="@{/createOtherProduct}" th:object="${otherProduct}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <label for="userId">User Id:</label>
+        <input type="text" id="userId" th:value="${userId}" readonly/><br/>
+
+        <label for="productType">Type of Product:</label>
+        <select id="productType" th:field="*{productName}" required>
+            <option value="">Select</option>
+            <option value="Loan">Loan</option>
+            <option value="Investment">Investment</option>
+            <option value="CD"></option>
+        </select><br/>
+
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" th:field="*{price}" required/><br/>
+
+        <button type="submit">Create Product</button>
+    </form>
+
+</body>
+</html>

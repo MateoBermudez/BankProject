@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1 th:text="${titulo}"></h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Id Propietario</th>
+            <th>Tipo de Producto</th>
+            <th>Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="otherProduct : ${otherProducts}">
+            <td th:text="${otherProduct.id}">Id</td>
+            <td th:text="${otherProduct.clientId}">Nombre</td>
+            <td th:text="${otherProduct.productName}">Tipo de Producto</td>
+            <td th:text="${otherProduct.price}">Precio</td>
+
+            <td>
+                <form th:action="@{'/deleteOtherProduct/' + ${otherProduct.getId()}}" method="get" style="display:inline;">
+                    <button type="submit">Eliminar Producto</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/createOtherProduct">Create Other Product</a>
+</body>
+</html>
