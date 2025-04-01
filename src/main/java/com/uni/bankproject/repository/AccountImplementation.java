@@ -1,7 +1,6 @@
 package com.uni.bankproject.repository;
 
 import com.uni.bankproject.entity.Account;
-import com.uni.bankproject.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -10,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class AccountImplemention implements AccountRepository{
+public class AccountImplementation implements AccountRepository{
 
     @PersistenceContext
     private EntityManager em;
@@ -66,7 +65,11 @@ public class AccountImplemention implements AccountRepository{
         return count > 0;
     }
 
-
-
-
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsSavingsAccount(String clientid) {
+        String query = "SELECT COUNT(*) FROM Account a WHERE a.clientId = :clientid and a.accountType = 'Savings'";
+        Long count = (Long) em.createQuery(query).setParameter("clientid", clientid).getSingleResult();
+        return count > 0;
+    }
 }

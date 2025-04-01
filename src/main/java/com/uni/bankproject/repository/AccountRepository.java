@@ -20,4 +20,6 @@ public interface AccountRepository {
     public String getIdByUsername(String username);
 
     public boolean existsByAccountNumber(String accountNumber);
+
+    public boolean existsSavingsAccount(String userid);
 }

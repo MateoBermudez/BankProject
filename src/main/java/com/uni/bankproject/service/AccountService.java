@@ -1,9 +1,7 @@
 package com.uni.bankproject.service;
 
 import com.uni.bankproject.entity.Account;
-import com.uni.bankproject.entity.User;
-import com.uni.bankproject.repository.AccountImplemention;
-import com.uni.bankproject.repository.AccountRepository;
+import com.uni.bankproject.repository.AccountImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,31 +12,41 @@ import java.util.Random;
 public class AccountService {
 
     @Autowired
-    private AccountImplemention accountImplemention;
+    private AccountImplementation accountImplementation;
 
     public String createAccount(Account account) {
-        if (accountImplemention.VerifyTypeAccount(account.getClientId(), account.getAccountType())) {
+        if (accountImplementation.VerifyTypeAccount(account.getClientId(), account.getAccountType())) {
             return "Ya tienes una cuenta de " + account.getAccountType();
         } else {
-            accountImplemention.CreateAccount(account);
-            return "Cuenta creada con éxito";
+            if (account.getAccountType().equals("Credit")){
+                if (accountImplementation.existsSavingsAccount(account.getClientId())){
+                    accountImplementation.CreateAccount(account);
+                    return "Cuenta creada con éxito";
+                } else {
+                    return "Debes de crear una cuenta de ahorros primero";
+                }
+            }
+            else {
+                accountImplementation.CreateAccount(account);
+                return "Cuenta creada con éxito";
+            }
         }
     }
 
     public String deleteAccount(String Accountid) {
-        Account account = accountImplemention.getAccountById(Accountid);
+        Account account = accountImplementation.getAccountById(Accountid);
         if (account.getAccountType().equals("Savings")) {
             if (account.getBalance() > 0) {
                 return "Debes de transferir el dinero a otra cuenta";
             } else {
-                accountImplemention.DeleteAccount(account);
+                accountImplementation.DeleteAccount(account);
                 return "Cuenta eliminada con éxito";
             }
         } else {
             if (account.getBalance() < 0) {
                 return "Debes de pagar lo que debes";
             } else {
-                accountImplemention.DeleteAccount(account);
+                accountImplementation.DeleteAccount(account);
                 return "Cuenta eliminada con éxito";
             }
 
@@ -46,15 +54,15 @@ public class AccountService {
     }
 
     public List<Account> getAccountsById(String id){
-        return accountImplemention.getAccountsById(id);
+        return accountImplementation.getAccountsById(id);
     }
 
     public Account getAccountById(String id){
-        return accountImplemention.getAccountById(id);
+        return accountImplementation.getAccountById(id);
     }
 
     public String getIdByUsername (String username){
-        return accountImplemention.getIdByUsername(username);
+        return accountImplementation.getIdByUsername(username);
     }
 
     public String generateUniqueAccountNumber() {
@@ -62,7 +70,7 @@ public class AccountService {
         String accountNumber;
         do {
             accountNumber = String.format("%05d", random.nextInt(100000)); // Genera un número entre 00000 y 99999
-        } while (accountImplemention.existsByAccountNumber(accountNumber));
+        } while (accountImplementation.existsByAccountNumber(accountNumber));
         return accountNumber;
     }
 
