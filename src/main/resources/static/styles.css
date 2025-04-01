@@ -2397,3 +2397,549 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Form Styles */
+.form-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-container {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 2rem;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-header h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: var(--text-secondary);
+}
+
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.form-control:read-only {
+    background-color: var(--card-background);
+    cursor: not-allowed;
+}
+
+.form-control.invalid {
+    border-color: var(--error-color);
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.form-control.with-icon {
+    padding-left: 2rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1;
+}
+
+.primary-button:hover {
+    background-color: var(--primary-hover);
+}
+
+.secondary-button {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-decoration: none;
+    text-align: center;
+    flex: 1;
+}
+
+.secondary-button:hover {
+    background-color: var(--border-color);
+}
+
+.form-message {
+    margin-top: 1.5rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    background-color: var(--success-color);
+    color: white;
+    font-weight: 500;
+}
+
+.alert.error {
+    background-color: var(--error-color);
+}
+
+.form-sidebar {
+    align-self: start;
+}
+
+.info-card {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 1.5rem;
+}
+
+.info-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-item {
+    margin-bottom: 1.5rem;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.info-item p {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.info-item ul {
+    margin-left: 1.5rem;
+    color: var(--text-color);
+}
+
+.info-item li {
+    margin-bottom: 0.25rem;
+}
+
+/* Responsive adjustments for forms */
+@media (max-width: 768px) {
+    .form-section {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-sidebar {
+        order: -1;
+    }
+}
+
+/* Add these styles to your existing CSS file */
+
+/* Confirmation Page Styles */
+.confirmation-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.confirmation-container {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 3rem;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.confirmation-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+}
+
+.check-icon {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.confirmation-container h2 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.confirmation-message {
+    margin-bottom: 2rem;
+}
+
+.message {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Accounts List Page Styles */
+.accounts-section {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-header h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.button-icon {
+    margin-right: 0.5rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-weight: 600;
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.data-table tr:hover {
+    background-color: var(--background-color);
+}
+
+.balance {
+    font-weight: 600;
+    color: var(--success-color);
+}
+
+.account-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.actions-cell {
+    width: 300px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-button.delete {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.action-button.delete:hover {
+    background-color: #dc2626;
+}
+
+.action-button.transfer {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.action-button.transfer:hover {
+    background-color: var(--primary-hover);
+}
+
+.action-button.history {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.action-button.history:hover {
+    background-color: var(--border-color);
+}
+
+.action-icon {
+    margin-right: 0.25rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-state h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.empty-state p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message-container {
+    margin: 1.5rem 0;
+}
+
+.section-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .confirmation-actions {
+        flex-direction: column;
+    }
+
+    .data-table th:nth-child(2),
+    .data-table td:nth-child(2) {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .confirmation-container {
+        padding: 2rem 1rem;
+    }
+
+    .accounts-section {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Add these styles to your existing CSS file */
+
+/* Product Type Badges */
+.product-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+}
+
+.product-type.loan {
+    background-color: var(--warning-color);
+}
+
+.product-type.investment {
+    background-color: var(--success-color);
+}
+
+.product-type.cd {
+    background-color: var(--primary-color);
+}
+
+/* Transfers Section Styles */
+.transfers-section {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Amount styling */
+.amount {
+    font-weight: 600;
+}
+
+.amount .currency-symbol {
+    position: static;
+    transform: none;
+    color: inherit;
+}
+
+/* Products Section Styles */
+.products-section {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Responsive table adjustments */
+@media (max-width: 992px) {
+    .data-table th:nth-child(1),
+    .data-table td:nth-child(1) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .data-table th:nth-child(2),
+    .data-table td:nth-child(2) {
+        display: none;
+    }
+
+    .transfers-section .data-table th:nth-child(6),
+    .transfers-section .data-table td:nth-child(6) {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .transfers-section .data-table th:nth-child(5),
+    .transfers-section .data-table td:nth-child(5) {
+        display: none;
+    }
+}

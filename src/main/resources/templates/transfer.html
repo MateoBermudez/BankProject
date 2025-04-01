@@ -1,26 +1,173 @@
-<!doctype html>
-<html lang="en" xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Transfer - UniBank</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
-<h1 th:text="${titulo}"></h1>
-<form th:action="@{/transfer}" th:object="${transfer}" method="post">
-    <label for="origin">Origin:</label>
-    <input type="text" id="origin" th:field="*{originAccount}" th:value="${originAccount}" readonly/><br/>
-    <label for="destination">Destination:</label>
-    <input type="text" id="destination" th:field="*{destinationAccount}" required/><br/>
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount" th:field="*{amount}" min="0" required/><br/>
-    <label for="description">Description:</label>
-    <input type="text" id="description" th:field="*{description}" required/><br/>
-    <button type="submit">Transfer</button>
-</form>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#users">Users</a></li>
+                <li><a href="/#accounts" class="active">Accounts</a></li>
+                <li><a href="/#about">About</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="light-icon">☀️</span>
+            <span class="dark-icon">🌙</span>
+        </button>
+    </header>
 
+    <main>
+        <section class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 th:text="${titulo}">Make a Transfer</h2>
+                    <p>Transfer funds between accounts quickly and securely</p>
+                </div>
 
-<div th:if="${message}" th:text="${message}"></div>
-<a href="/getAccounts" class="button"> Back to My Accounts</a>
+                <form th:action="@{/transfer}" th:object="${transfer}" method="post" class="styled-form">
+                    <div class="form-group">
+                        <label for="origin">Origin Account:</label>
+                        <input type="text" id="origin" th:field="*{originAccount}" th:value="${originAccount}" class="form-control" readonly/>
+                        <small class="form-text">The account you're transferring from</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destination">Destination Account:</label>
+                        <input type="text" id="destination" th:field="*{destinationAccount}" class="form-control" required placeholder="Enter account number"/>
+                        <small class="form-text">The account you're transferring to</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <div class="input-with-icon">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="amount" th:field="*{amount}" class="form-control with-icon" min="0" step="0.01" required placeholder="0.00"/>
+                        </div>
+                        <small class="form-text">How much would you like to transfer</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" th:field="*{description}" class="form-control" required placeholder="e.g. Rent payment, Gift, etc."/>
+                        <small class="form-text">A brief description of the transfer</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">Complete Transfer</button>
+                        <a href="/getAccounts" class="secondary-button">Cancel</a>
+                    </div>
+                </form>
+
+                <div class="form-message" th:if="${message}">
+                    <div class="alert" th:text="${message}"></div>
+                </div>
+            </div>
+
+            <div class="form-sidebar">
+                <div class="info-card">
+                    <h3>Transfer Information</h3>
+                    <div class="info-item">
+                        <h4>Transfer Tips</h4>
+                        <ul>
+                            <li>Double-check the destination account number</li>
+                            <li>Make sure you have sufficient funds</li>
+                            <li>Add a clear description for your records</li>
+                            <li>Transfers between UniBank accounts are instant</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Transfer Limits</h4>
+                        <p>Daily transfer limits may apply based on your account type and status.</p>
+                        <ul>
+                            <li>Standard accounts: Up to $5,000 per day</li>
+                            <li>Premium accounts: Up to $25,000 per day</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>A university project banking application</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#users">Users</a></li>
+                    <li><a href="/#accounts">Accounts</a></li>
+                    <li><a href="/#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Form validation
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.styled-form');
+        const amountInput = document.getElementById('amount');
+        const destinationInput = document.getElementById('destination');
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Validate amount (positive number)
+            const amountValue = parseFloat(amountInput.value);
+            if (isNaN(amountValue) || amountValue <= 0) {
+                amountInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                amountInput.classList.remove('invalid');
+            }
+
+            // Validate destination account
+            if (destinationInput.value.trim() === '') {
+                destinationInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                destinationInput.classList.remove('invalid');
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        // Remove invalid class on input
+        amountInput.addEventListener('input', function() {
+            this.classList.remove('invalid');
+        });
+
+        destinationInput.addEventListener('input', function() {
+            this.classList.remove('invalid');
+        });
+    });
+</script>
 </body>
 </html>

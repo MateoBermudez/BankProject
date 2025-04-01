@@ -1,36 +1,124 @@
-<!doctype html>
-<html lang="en" xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Products - UniBank</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
-    <h1 th:text="${titulo}"></h1>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Id Propietario</th>
-            <th>Tipo de Producto</th>
-            <th>Balance</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="otherProduct : ${otherProducts}">
-            <td th:text="${otherProduct.id}">Id</td>
-            <td th:text="${otherProduct.clientId}">Nombre</td>
-            <td th:text="${otherProduct.productName}">Tipo de Producto</td>
-            <td th:text="${otherProduct.price}">Precio</td>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#users">Users</a></li>
+                <li><a href="/#accounts">Accounts</a></li>
+                <li><a href="/#products" class="active">Products</a></li>
+                <li><a href="/#about">About</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="light-icon">☀️</span>
+            <span class="dark-icon">🌙</span>
+        </button>
+    </header>
 
-            <td>
-                <form th:action="@{'/deleteOtherProduct/' + ${otherProduct.getId()}}" method="get" style="display:inline;">
-                    <button type="submit">Eliminar Producto</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a href="/createOtherProduct">Create Other Product</a>
+    <main>
+        <section class="products-section">
+            <div class="section-header">
+                <h2 th:text="${titulo}">My Financial Products</h2>
+                <div class="header-actions">
+                    <a href="/createOtherProduct" class="primary-button">
+                        <span class="button-icon">+</span> Create New Product
+                    </a>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Owner ID</th>
+                        <th>Product Type</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="otherProduct : ${otherProducts}">
+                        <td th:text="${otherProduct.id}">P1001</td>
+                        <td th:text="${otherProduct.clientId}">U1001</td>
+                        <td>
+                                    <span class="product-type" th:text="${otherProduct.productName}"
+                                          th:classappend="${otherProduct.productName == 'Loan' ? 'loan' :
+                                                          (otherProduct.productName == 'Investment' ? 'investment' : 'cd')}">
+                                        Investment
+                                    </span>
+                        </td>
+                        <td class="amount">
+                            <span class="currency-symbol">$</span>
+                            <span th:text="${#numbers.formatDecimal(otherProduct.price, 1, 2)}">5,000.00</span>
+                        </td>
+                        <td class="actions-cell">
+                            <div class="action-buttons">
+                                <form th:action="@{'/deleteOtherProduct/' + ${otherProduct.getId()}}" method="get">
+                                    <button type="submit" class="action-button delete">
+                                        <span class="action-icon">🗑️</span> Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" th:if="${otherProducts == null || otherProducts.isEmpty()}">
+                <div class="empty-icon">📊</div>
+                <h3>No Financial Products Found</h3>
+                <p>You don't have any financial products yet. Create your first product to get started.</p>
+                <a href="/createOtherProduct" class="primary-button">Create Product</a>
+            </div>
+
+            <div class="section-footer">
+                <a href="/home" class="secondary-button">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>A university project banking application</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#users">Users</a></li>
+                    <li><a href="/#accounts">Accounts</a></li>
+                    <li><a href="/#products">Products</a></li>
+                    <li><a href="/#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
 </body>
 </html>
