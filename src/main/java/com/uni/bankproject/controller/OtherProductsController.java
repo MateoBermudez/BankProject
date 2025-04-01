@@ -31,11 +31,11 @@ public class OtherProductsController {
         String token = CookieUtils.getCookieValue(request.getCookies(), "jwt");
         if (token != null) {
             String username = jwtUtils.getUsernameFromToken(token);
-            String userid = otherProductsService.getIdByUsername(username);
+            String userId = otherProductsService.getIdByUsername(username);
             model.addAttribute("titulo", "Crear otro producto");
-            model.addAttribute("Userid", userid);
+            model.addAttribute("userId", userId);
             OtherProducts otherProduct = new OtherProducts();
-            otherProduct.setUserId(userid);
+            otherProduct.setUserId(userId);
             otherProduct.setProductid(otherProductsService.generateUniqueProductNumber());
             model.addAttribute("otherProduct", otherProduct);
             return "createOtherProduct";

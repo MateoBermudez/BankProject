@@ -1,49 +1,136 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Accounts - UniBank</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
 </head>
 <body>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#users">Users</a></li>
+                <li><a href="/#accounts" class="active">Accounts</a></li>
+                <li><a href="/#about">About</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="light-icon">☀️</span>
+            <span class="dark-icon">🌙</span>
+        </button>
+    </header>
 
-<h1 th:text="${titulo}"></h1>
-<table>
-    <thead>
-    <tr>
-        <th>Numero Cuenta</th>
-        <th>Id Propietario</th>
-        <th>Saldo</th>
-        <th>Tipo de Cuenta</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="account : ${accounts}">
-        <td th:text="${account.accountNumber}">Id</td>
-        <td th:text="${account.clientId}">Nombre</td>
-        <td th:text="${account.balance}">Saldo</td>
-        <td th:text="${account.accountType}">Tipo de Cuenta</td>
+    <main>
+        <section class="accounts-section">
+            <div class="section-header">
+                <h2 th:text="${titulo}">My Accounts</h2>
+                <div class="header-actions">
+                    <a href="/createAccount" class="primary-button">
+                        <span class="button-icon">+</span> Create New Account
+                    </a>
+                </div>
+            </div>
 
-        <td>
-            <form th:action="@{'/deleteAccount/' + ${account.getAccountNumber()}}" method="get" style="display:inline;">
-                <button type="submit">Eliminar Cuenta</button>
-            </form>
-            <form th:action="@{'/transfer/' + ${account.getAccountNumber()}}" method="get" style="display:inline;">
-                <input type="hidden" name="id" th:value="${account.getAccountNumber()}" />
-                <button type="submit">Transferir</button>
-            </form>
-            <form th:action="@{'/getTransfers/' + ${account.getAccountNumber()}}" method="get" style="display:inline;">
-                <input type="hidden" name="id" th:value="${account.getAccountNumber()}" />
-                <button type="submit">Ver Transferencias</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<div th:if="${message}" th:text="${message}"></div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>Account Number</th>
+                        <th>Owner ID</th>
+                        <th>Balance</th>
+                        <th>Account Type</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="account : ${accounts}">
+                        <td th:text="${account.accountNumber}">AC1001</td>
+                        <td th:text="${account.clientId}">U1001</td>
+                        <td class="balance">
+                            <span class="currency-symbol">$</span>
+                            <span th:text="${#numbers.formatDecimal(account.balance, 1, 2)}">1,250.00</span>
+                        </td>
+                        <td>
+                            <span class="account-type" th:text="${account.accountType}">Savings</span>
+                        </td>
+                        <td class="actions-cell">
+                            <div class="action-buttons">
+                                <form th:action="@{'/deleteAccount/' + ${account.getAccountNumber()}}" method="get">
+                                    <button type="submit" class="action-button delete">
+                                        <span class="action-icon">🗑️</span> Delete
+                                    </button>
+                                </form>
 
-<a href="/createAccount">Create Account</a>
+                                <form th:action="@{'/transfer/' + ${account.getAccountNumber()}}" method="get">
+                                    <input type="hidden" name="id" th:value="${account.getAccountNumber()}" />
+                                    <button type="submit" class="action-button transfer">
+                                        <span class="action-icon">↗️</span> Transfer
+                                    </button>
+                                </form>
 
-<a href="/home" class="button">Back to Home</a>
+                                <form th:action="@{'/getTransfers/' + ${account.getAccountNumber()}}" method="get">
+                                    <input type="hidden" name="id" th:value="${account.getAccountNumber()}" />
+                                    <button type="submit" class="action-button history">
+                                        <span class="action-icon">📋</span> History
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <div class="empty-state" th:if="${accounts == null || accounts.isEmpty()}">
+                <div class="empty-icon">💼</div>
+                <h3>No Accounts Found</h3>
+                <p>You don't have any accounts yet. Create your first account to get started.</p>
+                <a href="/createAccount" class="primary-button">Create Account</a>
+            </div>
+
+            <div class="message-container" th:if="${message}">
+                <div class="alert" th:text="${message}"></div>
+            </div>
+
+            <div class="section-footer">
+                <a href="/home" class="secondary-button">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>A university project banking application</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#users">Users</a></li>
+                    <li><a href="/#accounts">Accounts</a></li>
+                    <li><a href="/#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123–4567</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
 </body>
 </html>
