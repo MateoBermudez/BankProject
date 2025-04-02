@@ -5,6 +5,7 @@ import com.uni.bankproject.repository.OtherProductsImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -104,54 +105,59 @@ public class OtherProductsService {
         }
     }
 
-    public String deleteInvestment (OtherProducts otherproduct){
-        Date date = new Date();
-        LocalDate createDate = otherproduct.getCreateAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate currentDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    public String deleteInvestment(OtherProducts otherproduct) {
+        LocalDate currentDate = LocalDate.now();
+        String createDate = otherproduct.getCreateAt().toString();
 
-        long daysBetween = ChronoUnit.DAYS.between(createDate, currentDate);
+        LocalDate creationDate = LocalDate.parse(createDate);
 
-        double formula = (daysBetween * 0.001);
+        long daysBetween = ChronoUnit.DAYS.between(creationDate, currentDate);
+
+        double formula = daysBetween * 0.001;
         double money = otherproduct.getPrice() + (otherproduct.getPrice() * formula);
         product.depositMoneyByUserId(otherproduct.getUserId(), money);
         product.deleteProduct(otherproduct);
-        return "Inversion eliminada con exito";
+        return "Inversión eliminada con éxito";
     }
 
-    public String deleteCD (OtherProducts otherproduct){
-        Date date = new Date();
-        LocalDate createDate = otherproduct.getCreateAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate currentDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        long daysBetween = ChronoUnit.DAYS.between(createDate, currentDate);
+    public String deleteCD(OtherProducts otherproduct) {
+        LocalDate currentDate = LocalDate.now();
+        String createDate = otherproduct.getCreateAt().toString();
 
-        if (daysBetween < 30){
-            return "El tiempo minimo de un CD es de 30 dias";
+        LocalDate creationDate = LocalDate.parse(createDate);
+        long daysBetween = ChronoUnit.DAYS.between(creationDate, currentDate);
+
+        if (daysBetween < 30) {
+            return "El tiempo mínimo de un CD es de 30 días";
         } else {
             double formula = (daysBetween * 0.05) / 30;
             double money = otherproduct.getPrice() + (otherproduct.getPrice() * formula);
             product.depositMoneyByUserId(otherproduct.getUserId(), money);
             product.deleteProduct(otherproduct);
-            return "CD eliminado con exito";
+            return "CD eliminado con éxito";
         }
     }
 
-    public String deleteLoan (OtherProducts otherproduct){
-        Date date = new Date();
-        LocalDate createDate = otherproduct.getCreateAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate currentDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        long daysBetween = ChronoUnit.DAYS.between(createDate, currentDate);
+    public String deleteLoan(OtherProducts otherproduct) {
+        LocalDate currentDate = LocalDate.now();
+        String createDate = otherproduct.getCreateAt().toString();
+        LocalDate creationDate = LocalDate.parse(createDate);
+
+        long daysBetween = ChronoUnit.DAYS.between(creationDate, currentDate);
         double formula = (daysBetween * 0.05) / 30;
         double money = otherproduct.getPrice() + (otherproduct.getPrice() * formula);
-        if (product.VerifyEnoughMoney(otherproduct.getUserId(), money)){
+
+        if (product.VerifyEnoughMoney(otherproduct.getUserId(), money)) {
             product.extractMoneyByUserId(otherproduct.getUserId(), money);
             product.deleteProduct(otherproduct);
-            return "Prestamo Pagado con exito";
+            return "Préstamo pagado con éxito";
         } else {
             return "No tienes suficiente dinero para pagar el préstamo en tu cuenta de ahorros";
         }
     }
+
 
     public String getIdByUsername(String username) {
         return product.getIdByUsername(username);

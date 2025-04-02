@@ -53,8 +53,8 @@
                     </thead>
                     <tbody>
                     <tr th:each="otherProduct : ${otherProducts}">
-                        <td th:text="${otherProduct.id}">P1001</td>
-                        <td th:text="${otherProduct.clientId}">U1001</td>
+                        <td th:text="${otherProduct.productid}">P1001</td>
+                        <td th:text="${otherProduct.userId}">U1001</td>
                         <td>
                                     <span class="product-type" th:text="${otherProduct.productName}"
                                           th:classappend="${otherProduct.productName == 'Loan' ? 'loan' :
@@ -68,7 +68,7 @@
                         </td>
                         <td class="actions-cell">
                             <div class="action-buttons">
-                                <form th:action="@{'/deleteOtherProduct/' + ${otherProduct.getId()}}" method="get">
+                                <form th:action="@{'/deleteOtherProduct/' + ${otherProduct.getProductid()}}" method="get">
                                     <button type="submit" class="action-button delete">
                                         <span class="action-icon">🗑️</span> Delete
                                     </button>

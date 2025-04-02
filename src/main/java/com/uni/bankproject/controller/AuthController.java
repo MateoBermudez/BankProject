@@ -68,7 +68,7 @@ public class AuthController {
         return "redirect:/api/v1/user";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         Cookie cookie = CookieUtils.createCookie("jwt", "", 0);
         response.addCookie(cookie);

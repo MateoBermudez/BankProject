@@ -25,7 +25,7 @@
         </nav>
         <div class="header-actions">
             <a th:href="@{/api/v1/user}" class="btn btn-outline">My Profile</a>
-            <a th:href="@{/api/v1/auth/logout}" class="btn btn-secondary">Logout</a>
+            <a th:href="@{/api/v1/auth/logout}" methods="post" class="btn btn-secondary">Logout</a>
             <button id="theme-toggle" aria-label="Toggle dark mode">
                 <span class="light-icon">☀️</span>
                 <span class="dark-icon">🌙</span>
@@ -114,7 +114,7 @@
         <section id="accounts" class="accounts-section">
             <div class="section-header">
                 <h2>My Accounts</h2>
-                <button class="btn btn-primary">+ New Account</button>
+                <a class="btn btn-primary" th:href="@{/createAccount}"> + New Account</a>
             </div>
             <div class="accounts-grid">
                 <div class="account-card">

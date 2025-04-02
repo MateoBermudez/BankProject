@@ -55,6 +55,7 @@ public class OtherProductsController {
             otherProduct.setProductid(otherProductsService.generateUniqueProductNumber());
             String message = otherProductsService.createProduct(otherProduct);
             model.addAttribute("message", message);
+            model.addAttribute("otherProduct", otherProduct);
             return "createOtherProduct";
         } else {
             return "redirect:/login";
@@ -76,7 +77,7 @@ public class OtherProductsController {
         }
     }
 
-    @GetMapping("/deleteOtherProduct{productid}")
+    @GetMapping("/deleteOtherProduct/{productid}")
     public String deleteOtherProduct(@PathVariable String productid, Model model) {
         model.addAttribute("titulo", "Eliminar producto");
         String message = otherProductsService.deleteProduct(productid);
