@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer History - UniBank</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#users">Users</a></li>
+                <li><a href="/#accounts" class="active">Accounts</a></li>
+                <li><a href="/#about">About</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="light-icon">☀️</span>
+            <span class="dark-icon">🌙</span>
+        </button>
+    </header>
+
+    <main>
+        <section class="transfers-section">
+            <div class="section-header">
+                <h2 th:text="${titulo}">Transfer History</h2>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="transfer : ${transfers}">
+                        <td th:text="${transfer.id}">T1001</td>
+                        <td th:text="${transfer.originAccount}">AC1001</td>
+                        <td th:text="${transfer.destinationAccount}">AC1002</td>
+                        <td class="amount">
+                            <span class="currency-symbol">$</span>
+                            <span th:text="${#numbers.formatDecimal(transfer.amount, 1, 2)}">500.00</span>
+                        </td>
+                        <td th:text="${#dates.format(transfer.transferDate, 'dd/MM/yyyy HH:mm')}">01/01/2025 14:30</td>
+                        <td th:text="${transfer.description}">Monthly rent payment</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" th:if="${transfers == null || transfers.isEmpty()}">
+                <div class="empty-icon">📝</div>
+                <h3>No Transfers Found</h3>
+                <p>There are no transfers associated with this account yet.</p>
+            </div>
+
+            <div class="section-footer">
+                <a href="/getAccounts" class="primary-button">Back to My Accounts</a>
+                <a href="/home" class="secondary-button">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>A university project banking application</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#users">Users</a></li>
+                    <li><a href="/#accounts">Accounts</a></li>
+                    <li><a href="/#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

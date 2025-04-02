@@ -1,0 +1,4 @@
+insert into account (account_number, account_type, balance, client_id) values (1, 'Credit',  -100.00,  1);
+insert into account (account_number, account_type, balance, client_id) values (2, 'Savings',  100.00,  2);
+insert into transfer (amount, destination_account, origin_account, transfer_date, description) values (100.00,  '1', '2',  '2020-01-01', 'Initial deposit');
+INSERT INTO bank_user (userID, username, email, phone_number, address, user_key, bank_admin) VALUES ('1017924933', 'MateoBerm22', 'mateo@gmail.com', '3219782211', 'Cl 77 40-23', '$2a$10$pxXsf/0wwrZdw4hhS/fpauXnPtTxae5qofRSIC6OIcw9x.lced9Su', 1);

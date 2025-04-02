@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - UniBank</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
+    <script th:src="@{/account.js}" defer></script>
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#users">Users</a></li>
+                <li><a href="/#accounts" class="active">Accounts</a></li>
+                <li><a href="/#about">About</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="light-icon">☀️</span>
+            <span class="dark-icon">🌙</span>
+        </button>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 th:text="${titulo}">Create a New Account</h2>
+                    <p>Fill in the details below to create a new bank account</p>
+                </div>
+
+                <form th:action="@{/createAccount}" th:object="${account}" method="post" class="styled-form">
+<!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+                    <div class="form-group">
+                        <label for="userId">User ID:</label>
+                        <input type="text" id="userId" th:value="${userId}" class="form-control" readonly/>
+                        <small class="form-text">This is your unique identifier in our system</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountType">Type of Account:</label>
+                        <select id="accountType" th:field="*{accountType}" class="form-control" onchange="handleAccountTypeChange()" required>
+                            <option value="">Select</option>
+                            <option value="Savings">Savings</option>
+                            <option value="Credit">Credit</option>
+                        </select>
+                        <small class="form-text" id="accountTypeHelp">Choose the type of account you want to create</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="balance">Initial Balance:</label>
+                        <div class="input-with-icon">
+                            <span class="currency-symbol">$</span>
+                            <input type="text" id="balance" th:field="*{balance}" class="form-control with-icon" required pattern="[0-9]+(\.[0-9]{1,2})?" title="Please enter a valid amount (e.g. 100 or 100.50)"/>
+                        </div>
+                        <small class="form-text" id="balanceHelp">Enter the starting balance for your account</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">Create Account</button>
+                        <a th:href="@{/getAccounts}" class="secondary-button">Back to My Accounts</a>
+                    </div>
+                </form>
+
+                <div class="form-message" th:if="${message}">
+                    <div class="alert" th:text="${message}"></div>
+                </div>
+            </div>
+
+            <div class="form-sidebar">
+                <div class="info-card">
+                    <h3>Account Types</h3>
+                    <div class="info-item">
+                        <h4>Savings Account</h4>
+                        <p>A saving account allows you to earn interest on your deposits while keeping your money secure.</p>
+                        <ul>
+                            <li>Competitive interest rates</li>
+                            <li>No monthly fees</li>
+                            <li>Easy access to your funds</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Credit Account</h4>
+                        <p>A credit account provides you with a line of credit that you can use for purchases and payments.</p>
+                        <ul>
+                            <li>Flexible credit limits</li>
+                            <li>Build your credit history</li>
+                            <li>Secure online transactions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>A university project banking application</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#users">Users</a></li>
+                    <li><a href="/#accounts">Accounts</a></li>
+                    <li><a href="/#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123–4567</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Account type change handler
+    function handleAccountTypeChange() {
+        const accountType = document.getElementById('accountType').value;
+        const balanceHelp = document.getElementById('balanceHelp');
+        const accountTypeHelp = document.getElementById('accountTypeHelp');
+
+        if (accountType === 'Savings') {
+            balanceHelp.textContent = 'Enter the initial deposit amount for your savings account';
+            accountTypeHelp.textContent = 'Savings accounts earn interest on your deposits';
+        } else if (accountType === 'Credit') {
+            balanceHelp.textContent = 'Enter the credit limit for your account';
+            accountTypeHelp.textContent = 'Credit accounts allow you to make purchases on credit';
+        } else {
+            balanceHelp.textContent = 'Enter the starting balance for your account';
+            accountTypeHelp.textContent = 'Choose the type of account you want to create';
+        }
+    }
+
+    // Form validation
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.styled-form');
+        const balanceInput = document.getElementById('balance');
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Validate balance (numeric with optional decimal)
+            const balanceValue = balanceInput.value.trim();
+            const balanceRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
+
+            if (!balanceRegex.test(balanceValue)) {
+                balanceInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                balanceInput.classList.remove('invalid');
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        // Remove invalid class on input
+        balanceInput.addEventListener('input', function() {
+            this.classList.remove('invalid');
+        });
+    });
+</script>
+</body>
+</html>
