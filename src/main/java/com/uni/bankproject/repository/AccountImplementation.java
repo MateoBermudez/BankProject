@@ -72,4 +72,11 @@ public class AccountImplementation implements AccountRepository{
         Long count = (Long) em.createQuery(query).setParameter("clientid", clientid).getSingleResult();
         return count > 0;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Account> getAllAccounts() {
+        String query = "SELECT a FROM Account a";
+        return em.createQuery(query).getResultList();
+    }
 }

@@ -22,4 +22,6 @@ public interface AccountRepository {
     public boolean existsByAccountNumber(String accountNumber);
 
     public boolean existsSavingsAccount(String userid);
+
+    public List<Account> getAllAccounts();
 }

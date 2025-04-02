@@ -92,18 +92,6 @@
                 <td>Active</td>
               </tr>
               <!-- Sample data for preview -->
-              <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>john@example.com</td>
-                <td>Active</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jane Smith</td>
-                <td>jane@example.com</td>
-                <td>Active</td>
-              </tr>
               </tbody>
             </table>
           </div>
@@ -138,32 +126,19 @@
               </tr>
               </thead>
               <tbody> <!-- Delete Comment when accounts are available -->
-<!--              <tr th:each="account : ${accounts}">-->
-<!--                <td th:text="${account.number}">AC1001</td>-->
-<!--                <td th:text="${account.owner}">John Doe</td>-->
-<!--                <td th:text="${account.type}">Checking</td>-->
-<!--                <td th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}">$1,250.00</td>-->
-<!--              </tr>-->
-              <!-- Sample data for preview -->
-              <tr>
-                <td>AC1001</td>
-                <td>John Doe</td>
-                <td>Checking</td>
-                <td>$1,250.00</td>
-              </tr>
-              <tr>
-                <td>AC1002</td>
-                <td>Jane Smith</td>
-                <td>Savings</td>
-                <td>$5,430.75</td>
+              <tr th:each="account : ${accounts}">
+                <td th:text="${account.accountNumber}">AC1001</td>
+                <td th:text="${account.clientId}">John Doe</td>
+                <td th:text="${account.accountType}">Checking</td>
+                <td th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}">$1,250.00</td>
               </tr>
               </tbody>
             </table>
           </div> <!-- Delete Comment when accounts are available -->
-<!--          <div class="empty-state" th:if="${accounts == null or #lists.isEmpty(accounts)}">-->
+          <div class="empty-state" th:if="${accounts == null or #lists.isEmpty(accounts)}">
             <p>No accounts found in the system.</p>
           </div>
-<!--        </div>-->
+        </div>
       </div>
     </section>
 

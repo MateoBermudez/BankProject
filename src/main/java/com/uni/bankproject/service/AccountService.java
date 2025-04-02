@@ -74,5 +74,9 @@ public class AccountService {
         return accountNumber;
     }
 
+    public List<Account> getAllAccounts() {
+        return accountImplementation.getAllAccounts();
+    }
+
 
 }

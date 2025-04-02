@@ -1,6 +1,7 @@
 package com.uni.bankproject.controller;
 
 import com.uni.bankproject.dto.UserDTO;
+import com.uni.bankproject.service.AccountService;
 import com.uni.bankproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,16 +15,19 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final AccountService accountService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AccountService accountService) {
         this.userService = userService;
+        this.accountService = accountService;
     }
 
     @GetMapping("/home-admin")
     public String home(Model model, @CookieValue(value = "jwt", defaultValue = "") String token) {
         List<UserDTO> users = userService.getAllUsers(token);
         model.addAttribute("users", users);
+        model.addAttribute("accounts", accountService.getAllAccounts());
         return "home-admin";
     }
 

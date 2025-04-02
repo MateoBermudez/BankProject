@@ -17,9 +17,8 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="#" class="active">Dashboard</a></li>
-                <li><a href="#accounts">Accounts</a></li>
-                <li><a href="#transactions">Transactions</a></li>
-                <li><a href="#transfers">Transfers</a></li>
+                <li><a th:href="@{/getAccounts}">Accounts</a></li>
+                <li><a th:href="@{/getOtherProducts}">Other Products</a></li>
                 <li><a href="#services">Services</a></li>
             </ul>
         </nav>
@@ -41,13 +40,13 @@
                     <p>Last login: <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy HH:mm')}">May 15, 2025 14:30</span></p>
                 </div>
                 <div class="quick-actions">
-                    <a href="#transfers" class="quick-action-btn">
+                    <a th:href="@{/getAccounts}" class="quick-action-btn">
                         <span class="action-icon">🔄</span>
-                        <span>Transfer</span>
+                        <span>My Accounts</span>
                     </a>
-                    <a href="#" class="quick-action-btn">
+                    <a th:href="@{/getOtherProducts}" class="quick-action-btn">
                         <span class="action-icon">💰</span>
-                        <span>Deposit</span>
+                        <span>Other products</span>
                     </a>
                     <a href="#" class="quick-action-btn">
                         <span class="action-icon">📱</span>
@@ -235,7 +234,7 @@
                 </table>
             </div>
             <div class="transactions-footer">
-                <a href="#" class="btn btn-secondary">View All Transactions</a>
+                <a th:href="@{/getAccounts}" class="btn btn-secondary">Go to My Accounts</a>
                 <div class="pagination">
                     <button class="pagination-btn" disabled>&laquo;</button>
                     <button class="pagination-btn active">1</button>
@@ -246,87 +245,87 @@
             </div>
         </section>
 
-        <section id="transfers" class="transfers-section">
-            <div class="section-header">
-                <h2>Transfer Money</h2>
-            </div>
-            <div class="transfer-container">
-                <div class="transfer-form-container">
-                    <form class="transfer-form">
-                        <div class="form-group">
-                            <label for="fromAccount">From Account</label>
-                            <select id="fromAccount" name="fromAccount" class="form-control">
-                                <option>Checking *4567 - $2,345.67</option>
-                                <option>Savings *7890 - $1,895.08</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="toAccount">To Account</label>
-                            <select id="toAccount" name="toAccount" class="form-control">
-                                <option>Savings *7890 - $1,895.08</option>
-                                <option>Checking *4567 - $2,345.67</option>
-                                <option>Credit Card *2345 - $450.25</option>
-                                <option>Add External Account</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="amount">Amount</label>
-                            <div class="amount-input">
-                                <span class="currency-symbol">$</span>
-                                <input type="number" id="amount" name="amount" class="form-control" placeholder="0.00" step="0.01" min="0">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="transferDate">Transfer Date</label>
-                            <input type="date" id="transferDate" name="transferDate" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="memo">Memo (Optional)</label>
-                            <input type="text" id="memo" name="memo" class="form-control" placeholder="Add a note">
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="recurring" name="recurring">
-                                <label for="recurring">Make this a recurring transfer</label>
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Transfer Funds</button>
-                            <button type="reset" class="btn btn-outline">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="transfer-info">
-                    <div class="info-card">
-                        <h3>Transfer Information</h3>
-                        <ul class="info-list">
-                            <li>Transfers between your UniBank accounts are processed immediately during business hours.</li>
-                            <li>Transfers to external accounts may take 1–3 business days to process.</li>
-                            <li>There are no fees for transfers between your UniBank accounts.</li>
-                            <li>You can schedule transfers up to 90 days in advance.</li>
-                            <li>Recurring transfers can be set up on a daily, weekly, or monthly basis.</li>
-                        </ul>
-                        <div class="recent-transfers">
-                            <h4>Recent Transfers</h4>
-                            <div class="recent-transfer-item">
-                                <div class="transfer-details">
-                                    <p class="transfer-accounts">Checking to Savings</p>
-                                    <p class="transfer-date">May 10, 2025</p>
-                                </div>
-                                <p class="transfer-amount">$200.00</p>
-                            </div>
-                            <div class="recent-transfer-item">
-                                <div class="transfer-details">
-                                    <p class="transfer-accounts">Checking to Credit Card</p>
-                                    <p class="transfer-date">May 5, 2025</p>
-                                </div>
-                                <p class="transfer-amount">$150.00</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--        <section id="transfers" class="transfers-section">-->
+<!--            <div class="section-header">-->
+<!--                <h2>Transfer Money</h2>-->
+<!--            </div>-->
+<!--            <div class="transfer-container">-->
+<!--                <div class="transfer-form-container">-->
+<!--                    <form class="transfer-form">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="fromAccount">From Account</label>-->
+<!--                            <select id="fromAccount" name="fromAccount" class="form-control">-->
+<!--                                <option>Checking *4567 - $2,345.67</option>-->
+<!--                                <option>Savings *7890 - $1,895.08</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="toAccount">To Account</label>-->
+<!--                            <select id="toAccount" name="toAccount" class="form-control">-->
+<!--                                <option>Savings *7890 - $1,895.08</option>-->
+<!--                                <option>Checking *4567 - $2,345.67</option>-->
+<!--                                <option>Credit Card *2345 - $450.25</option>-->
+<!--                                <option>Add External Account</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="amount">Amount</label>-->
+<!--                            <div class="amount-input">-->
+<!--                                <span class="currency-symbol">$</span>-->
+<!--                                <input type="number" id="amount" name="amount" class="form-control" placeholder="0.00" step="0.01" min="0">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="transferDate">Transfer Date</label>-->
+<!--                            <input type="date" id="transferDate" name="transferDate" class="form-control">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="memo">Memo (Optional)</label>-->
+<!--                            <input type="text" id="memo" name="memo" class="form-control" placeholder="Add a note">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <div class="checkbox-group">-->
+<!--                                <input type="checkbox" id="recurring" name="recurring">-->
+<!--                                <label for="recurring">Make this a recurring transfer</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-actions">-->
+<!--                            <button type="submit" class="btn btn-primary">Transfer Funds</button>-->
+<!--                            <button type="reset" class="btn btn-outline">Cancel</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div class="transfer-info">-->
+<!--                    <div class="info-card">-->
+<!--                        <h3>Transfer Information</h3>-->
+<!--                        <ul class="info-list">-->
+<!--                            <li>Transfers between your UniBank accounts are processed immediately during business hours.</li>-->
+<!--                            <li>Transfers to external accounts may take 1–3 business days to process.</li>-->
+<!--                            <li>There are no fees for transfers between your UniBank accounts.</li>-->
+<!--                            <li>You can schedule transfers up to 90 days in advance.</li>-->
+<!--                            <li>Recurring transfers can be set up on a daily, weekly, or monthly basis.</li>-->
+<!--                        </ul>-->
+<!--                        <div class="recent-transfers">-->
+<!--                            <h4>Recent Transfers</h4>-->
+<!--                            <div class="recent-transfer-item">-->
+<!--                                <div class="transfer-details">-->
+<!--                                    <p class="transfer-accounts">Checking to Savings</p>-->
+<!--                                    <p class="transfer-date">May 10, 2025</p>-->
+<!--                                </div>-->
+<!--                                <p class="transfer-amount">$200.00</p>-->
+<!--                            </div>-->
+<!--                            <div class="recent-transfer-item">-->
+<!--                                <div class="transfer-details">-->
+<!--                                    <p class="transfer-accounts">Checking to Credit Card</p>-->
+<!--                                    <p class="transfer-date">May 5, 2025</p>-->
+<!--                                </div>-->
+<!--                                <p class="transfer-amount">$150.00</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
 
         <section id="services" class="services-section dashboard-services">
             <div class="section-header">
@@ -393,10 +392,7 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#">Dashboard</a></li>
-                    <li><a href="#accounts">Accounts</a></li>
-                    <li><a href="#transactions">Transactions</a></li>
-                    <li><a href="#transfers">Transfers</a></li>
-                    <li><a href="#services">Services</a></li>
+                    <li><a th:href="@{/getAccounts}">Accounts</a></li>
                 </ul>
             </div>
             <div class="footer-section">
