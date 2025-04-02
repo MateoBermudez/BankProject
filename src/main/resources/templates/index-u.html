@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to UniBank - University Banking Solution</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{/script.js}" defer></script>
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <div class="logo-container">
+            <h1>UniBank</h1>
+            <p class="tagline">Your University Banking Solution</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a th:href="@{/api/v1/user}" class="btn btn-outline">My Account</a>
+            <a th:href="@{/api/v1/auth/logout}" class="btn btn-secondary">Logout</a>
+            <button id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Welcome Back, <span th:text="${user.userName}">User</span>!</h1>
+                <p>UniBank provides secure, easy-to-use banking services designed specifically for university students and staff.</p>
+                <div class="hero-actions">
+                    <a th:href="@{/api/v1/user}" class="btn btn-primary btn-large">My Dashboard</a>
+                    <a href="#features" class="btn btn-outline btn-large">Explore Features</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img th:src="@{/images/banking-illustration.svg}" alt="Banking illustration">
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2>Unique Features</h2>
+                <p>Take advantage of these features designed to make your banking experience better.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Banking</h3>
+                    <p>The newest security measures to keep your money and personal information safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💸</div>
+                    <h3>No Monthly Fees</h3>
+                    <p>Student accounts with no monthly maintenance fees or minimum balance requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Banking</h3>
+                    <p>Access your accounts anytime, anywhere with our user-friendly mobile app.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Student Credit Cards</h3>
+                    <p>Build credit history with student credit cards featuring cashback rewards.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Financial Education</h3>
+                    <p>Resources and tools to help you manage your money and build financial literacy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Real-time Alerts</h3>
+                    <p>Stay informed with instant notifications about account activity and transactions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive banking solutions tailored for university life.</p>
+            </div>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img th:src="@{/placeholder.svg?height=200&width=300}" alt="Checking accounts">
+                    </div>
+                    <div class="service-content">
+                        <h3>Student Checking</h3>
+                        <p>Fee-free checking accounts designed specifically for students, with no minimum balance requirements and unlimited transactions.</p>
+                        <ul class="service-features">
+                            <li>No monthly maintenance fees</li>
+                            <li>Free debit card</li>
+                            <li>Online and mobile banking</li>
+                            <li>ATM fee reimbursements</li>
+                        </ul>
+                        <a th:href="@{/api/v1/user}" class="btn btn-secondary">Manage Account</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-content">
+                        <h3>Savings Accounts</h3>
+                        <p>High-yield savings accounts to help you save for tuition, books, or your post-graduation plans.</p>
+                        <ul class="service-features">
+                            <li>Competitive interest rates</li>
+                            <li>Automatic savings plans</li>
+                            <li>Goal-based savings tools</li>
+                            <li>No minimum balance fees</li>
+                        </ul>
+                        <a th:href="@{/api/v1/user}" class="btn btn-secondary">Manage Account</a>
+                    </div>
+                    <div class="service-image">
+                        <img th:src="@{/placeholder.svg?height=200&width=300}" alt="Savings accounts">
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img th:src="@{/placeholder.svg?height=200&width=300}" alt="Student loans">
+                    </div>
+                    <div class="service-content">
+                        <h3>Student Loans</h3>
+                        <p>Flexible student loan options with competitive rates and repayment plans tailored to your needs.</p>
+                        <ul class="service-features">
+                            <li>Competitive interest rates</li>
+                            <li>Flexible repayment options</li>
+                            <li>No prepayment penalties</li>
+                            <li>Easy online application</li>
+                        </ul>
+                        <a th:href="@{/api/v1/user}" class="btn btn-secondary">Manage Loans</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="section-header">
+                <h2>About UniBank</h2>
+                <p>Your trusted financial partner on campus.</p>
+            </div>
+            <div class="about-container">
+                <div class="about-content">
+                    <h3>Our Mission</h3>
+                    <p>At UniBank, our mission is to provide university students and staff with accessible, affordable, and user-friendly banking services that support their financial well-being throughout their academic journey and beyond.</p>
+
+                    <h3>Our Story</h3>
+                    <p>Founded in 2020, UniBank was created by a group of university students who recognized the need for banking services that truly understood and addressed the unique financial challenges faced by students.</p>
+
+                    <h3>Our Values</h3>
+                    <ul class="values-list">
+                        <li><strong>Accessibility:</strong> Making banking services available to all students regardless of their financial background.</li>
+                        <li><strong>Education:</strong> Empowering students with financial knowledge and tools.</li>
+                        <li><strong>Innovation:</strong> Continuously improving our services to meet evolving student needs.</li>
+                        <li><strong>Community:</strong> Building a supportive financial community within the university ecosystem.</li>
+                    </ul>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">5,000+</div>
+                        <div class="stat-label">Student Accounts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">University Partners</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$2M+</div>
+                        <div class="stat-label">Student Loans</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4.8/5</div>
+                        <div class="stat-label">Customer Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Hear from students and staff who use UniBank.</p>
+            </div>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"UniBank has made managing my finances during college so much easier. The no-fee checking account and mobile app are perfect for busy students like me."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <div class="avatar-circle">
+                                <span>S</span>
+                            </div>
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Computer Science Student</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"As a professor, I appreciate how UniBank offers specialized services for university staff. Their financial planning tools have helped me prepare for retirement."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <div class="avatar-circle">
+                                <span>D</span>
+                            </div>
+                        </div>
+                        <div class="author-info">
+                            <h4>Dr. Michael Chen</h4>
+                            <p>Engineering Professor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The student loan options at UniBank helped me finance my education without the stress of high interest rates. Their repayment plans are flexible and manageable."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <div class="avatar-circle">
+                                <span>J</span>
+                            </div>
+                        </div>
+                        <div class="author-info">
+                            <h4>James Rodriguez</h4>
+                            <p>Business Administration Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2>Ready to Manage Your Finances?</h2>
+                <p>Access your accounts and take control of your financial future.</p>
+                <div class="cta-actions">
+                    <a th:href="@{/api/v1/user}" class="btn btn-primary btn-large">Go to Dashboard</a>
+                    <a href="#services" class="btn btn-outline btn-large">Explore Services</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UniBank</h3>
+                <p>Your University Banking Solution</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">📱</a>
+                    <a href="#" aria-label="Twitter">📱</a>
+                    <a href="#" aria-label="Instagram">📱</a>
+                    <a href="#" aria-label="LinkedIn">📱</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Checking Accounts</a></li>
+                    <li><a href="#">Savings Accounts</a></li>
+                    <li><a href="#">Student Loans</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">Mobile Banking</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@unibank.edu</p>
+                <p>Phone: (555) 123–4567</p>
+                <p>Address: 123 University Ave, Campus City, ST 12345</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

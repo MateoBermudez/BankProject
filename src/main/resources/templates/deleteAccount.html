@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Deleted - UniBank</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <script th:src="@{/script.js}" defer></script>
+</head>
+<body>
+<div class="app-container">
+  <header>
+    <div class="logo-container">
+      <h1>UniBank</h1>
+      <p class="tagline">Your University Banking Solution</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#users">Users</a></li>
+        <li><a href="/#accounts" class="active">Accounts</a></li>
+        <li><a href="/#about">About</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="light-icon">☀️</span>
+      <span class="dark-icon">🌙</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="confirmation-section">
+      <div class="confirmation-container">
+        <div class="confirmation-icon">
+          <span class="check-icon">✓</span>
+        </div>
+
+        <h2>Account Action Completed</h2>
+
+        <div class="confirmation-message" th:if="${deleteMessage}">
+          <p th:text="${deleteMessage}" class="message">Your account has been successfully deleted.</p>
+        </div>
+
+        <div class="confirmation-actions">
+          <a href="/getAccounts" class="primary-button">Back to My Accounts</a>
+          <a href="/home" class="secondary-button">Back to Home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>UniBank</h3>
+        <p>A university project banking application</p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#users">Users</a></li>
+          <li><a href="/#accounts">Accounts</a></li>
+          <li><a href="/#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: contact@unibank.edu</p>
+        <p>Phone: (555) 123–4567</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

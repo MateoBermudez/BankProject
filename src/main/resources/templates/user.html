@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - UniBank</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <script th:src="@{/script.js}" defer></script>
+</head>
+<body>
+<div class="app-container">
+  <header>
+    <div class="logo-container">
+      <h1>UniBank</h1>
+      <p class="tagline">Your University Banking Solution</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a th:href="@{/home}">Home</a></li>
+        <li><a href="#" class="active">Profile</a></li>
+        <li><a th:href="@{/#accounts}">Accounts</a></li>
+        <li><a th:href="@{/#about}">About</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="light-icon">☀️</span>
+      <span class="dark-icon">🌙</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="user-profile-section">
+      <div class="profile-header">
+        <h2>User Profile</h2>
+        <p>Manage your personal information</p>
+      </div>
+
+      <div class="profile-content">
+        <div class="profile-card">
+          <div class="profile-avatar">
+            <div class="avatar-circle">
+              <span th:text="${#strings.substring(user.userName, 0, 1).toUpperCase()}">U</span>
+            </div>
+            <h3 th:text="${user.userName}">Username</h3>
+          </div>
+
+          <div class="profile-form-container">
+            <form th:action="@{/api/v1/user/update}" th:object="${user}" method="post" class="profile-form">
+              <div class="form-group">
+                <label for="userID">User ID:</label>
+                <input type="text" id="userID" th:field="*{userID}" readonly class="form-control readonly" />
+              </div>
+              <div class="form-group">
+                <label for="userName">Username:</label>
+                <input type="text" id="userName" th:field="*{userName}" readonly class="form-control readonly" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" th:field="*{address}" class="form-control" />
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="account-actions">
+          <div class="action-card">
+            <h3>Account Security</h3>
+            <p>Manage your account security settings and preferences.</p>
+            <button id="change-password-btn" class="btn btn-secondary">Change Password</button>
+
+            <div id="password-form-container" class="hidden">
+              <form th:action="@{/api/v1/user/change-password}" method="post" id="password-form" class="password-form">
+                <div class="form-group">
+                  <label for="currentPassword">Current Password:</label>
+                  <input type="password" id="currentPassword" name="currentPassword" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label for="newPassword">New Password:</label>
+                  <input type="password" id="newPassword" name="newPassword" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password:</label>
+                  <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" />
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">Save Password</button>
+                  <button type="button" id="cancel-password" class="btn btn-outline">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="action-card danger-zone">
+            <h3>Danger Zone</h3>
+            <p>These actions are irreversible. Please proceed with caution.</p>
+
+            <div class="danger-actions">
+              <form th:action="@{/api/v1/user/delete}" method="post" class="delete-form">
+                <button type="button" id="delete-account-btn" class="btn btn-danger">Delete Account</button>
+
+                <div id="delete-confirmation" class="hidden">
+                  <p class="warning-text">Are you sure you want to delete your account? This action cannot be undone.</p>
+                  <div class="confirmation-actions">
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <button type="button" id="cancel-delete" class="btn btn-outline">Cancel</button>
+                  </div>
+                </div>
+              </form>
+
+              <form th:action="@{/api/v1/auth/logout}" method="post" class="logout-form">
+                <button type="submit" class="btn btn-outline-danger">Logout</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>UniBank</h3>
+        <p>A university project banking application</p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a th:href="@{/home}">Home</a></li>
+          <li><a href="#" class="active">Profile</a></li>
+          <li><a th:href="@{/#accounts}">Accounts</a></li>
+          <li><a th:href="@{/#about}">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: contact@unibank.edu</p>
+        <p>Phone: (555) 123–4567</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> UniBank. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
