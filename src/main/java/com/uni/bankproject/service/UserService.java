@@ -121,4 +121,14 @@ public class UserService {
         user.setUserKey(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
+
+    public void checkIfUserIsAdmin(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new RuntimeException("User with username " + username + " not found")
+        );
+
+        if (!user.isAdmin()) {
+            throw new RuntimeException("User with username " + username + " is not an admin");
+        }
+    }
 }

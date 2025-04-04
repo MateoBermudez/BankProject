@@ -74,6 +74,9 @@
             <li>Setting user permissions</li>
           </ul>
           <div class="user-list" th:if="${users != null and !#lists.isEmpty(users)}">
+            <div class="section-footer">
+              <a th:href="@{admin/downloadPdf-users}" class="secondary-button">Report</a>
+            </div>
             <h4>Recent Users</h4>
             <table>
               <thead>
@@ -115,6 +118,9 @@
           </ul>
 <!--          <div class="account-list" th:if="${accounts != null and !#lists.isEmpty(accounts)}">-->
           <div> <!-- Delete this DIV when accounts are available -->
+            <div class="section-footer">
+              <a th:href="@{admin/downloadPdf-accounts}" class="secondary-button">Report</a>
+            </div>
             <h4>Recent Accounts</h4>
             <table>
               <thead>
